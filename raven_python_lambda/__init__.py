@@ -140,6 +140,8 @@ class RavenLambdaWrapper(object):
             if not self.config["enabled"]:
                 return fn(event, context)
 
+            self.config['raven_client'].context.clear()
+
             self.context = context
 
             raven_context = {
@@ -207,6 +209,7 @@ class RavenLambdaWrapper(object):
                 return fn(event, context)
             except Exception as e:
                 self.config['raven_client'].captureException()
+                self.config['raven_client'].context.clear()
                 raise e
             finally:
                 for t in timers:
