@@ -102,7 +102,7 @@ class RavenLambdaWrapper(object):
     def __init__(self, config=None):
         self.config = {
             'capture_timeout_warnings': boolval(os.environ.get('SENTRY_CAPTURE_TIMEOUTS', True)),
-            'timeout_warning_threshold': float(os.environ.get('SENTRY_WARNING_THRESHOLD', 0.50)),
+            'timeout_warning_threshold': float(os.environ.get('SENTRY_TIMEOUT_THRESHOLD', 0.50)),
             'capture_memory_warnings': boolval(os.environ.get('SENTRY_CAPTURE_MEMORY', True)),
             'memory_warning_threshold': float(os.environ.get('SENTRY_MEMORY_THRESHOLD', 0.75)),
             'capture_unhandled_exceptions': boolval(os.environ.get('SENTRY_CAPTURE_UNHANDLED', True)),
