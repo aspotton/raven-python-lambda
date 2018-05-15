@@ -123,7 +123,7 @@ class RavenLambdaWrapper(object):
             return
 
         if self.config.get('raven_client'):
-            assert self.config.get('raven_client') and not isinstance(self.config.get('raven_client'), Client)
+            assert self.config.get('raven_client') and not isinstance(self.config.get('raven_client').__class__, Client)
         else:
             self.config['raven_client'] = configure_raven_client(self.config)
 
