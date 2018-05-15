@@ -183,6 +183,7 @@ class RavenLambdaWrapper(object):
 
             # rethrow exception to halt lambda execution
             timers = []
+            a = None
             try:
                 if self.config.get('auto_bread_crumbs'):
                     # first breadcrumb is the invocation of the lambda itself
@@ -206,7 +207,7 @@ class RavenLambdaWrapper(object):
                 timers = install_timers(self.config, context)
 
                 # invoke the original function
-                return fn(event, context)
+                a = fn(event, context)
             except Exception as e:
                 self.config['raven_client'].captureException()
                 raise e
@@ -214,6 +215,8 @@ class RavenLambdaWrapper(object):
                 self.config['raven_client'].context.clear()
                 for t in timers:
                     t.cancel()
+                if a:
+                    return a
 
         return decorated
 
