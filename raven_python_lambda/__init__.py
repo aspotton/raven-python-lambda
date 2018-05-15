@@ -209,9 +209,9 @@ class RavenLambdaWrapper(object):
                 return fn(event, context)
             except Exception as e:
                 self.config['raven_client'].captureException()
-                self.config['raven_client'].context.clear()
                 raise e
             finally:
+                self.config['raven_client'].context.clear()
                 for t in timers:
                     t.cancel()
 
